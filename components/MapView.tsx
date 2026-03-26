@@ -19,25 +19,25 @@ const devices: DevicePoint[] = [
     id: "device_001",
     name: "Mine Sensor 001",
     x: "60%",
-    y: "52%",
-    labelX: "calc(60% + 34px)",
-    labelY: "calc(52% - 18px)",
+    y: "51%",
+    labelX: "calc(46% + 34px)",
+    labelY: "calc(43% - 18px)",
   },
   {
     id: "device_002",
     name: "Mine Sensor 002",
-    x: "45%",
-    y: "30%",
-    labelX: "calc(45% + 34px)",
-    labelY: "calc(30% - 16px)",
+    x: "43%",
+    y: "70%",
+    labelX: "calc(15% + 34px)",
+    labelY: "calc(69% - 16px)",
   },
   {
     id: "device_003",
     name: "Mine Sensor 003",
-    x: "69%",
-    y: "67%",
-    labelX: "calc(69% + 34px)",
-    labelY: "calc(67% - 18px)",
+    x: "88%",
+    y: "51%",
+    labelX: "calc(74% + 34px)",
+    labelY: "calc(43% - 18px)",
   },
 ];
 
@@ -79,23 +79,27 @@ export default function MapView({
             400m
           </div>
 
+          {/* Vertical shaft */}
           <div className="absolute left-[43%] top-[150px] h-[340px] w-[138px] -translate-x-1/2 rounded-[22px] bg-[#5a514b]" />
           <div className="absolute left-[43%] top-[165px] h-[310px] w-[82px] -translate-x-1/2 rounded-[14px] bg-[#171312]" />
           <div className="absolute left-[43%] top-[245px] h-[2px] w-[82px] -translate-x-1/2 bg-[#5e554f]" />
           <div className="absolute left-[43%] top-[335px] h-[2px] w-[82px] -translate-x-1/2 bg-[#5e554f]" />
           <div className="absolute left-[43%] top-[425px] h-[2px] w-[82px] -translate-x-1/2 bg-[#5e554f]" />
 
-          <div className="absolute left-[57%] top-[300px] h-[50px] w-[290px] rounded-[20px] border-[4px] border-[#171312] bg-[#2a2422]" />
-          <div className="absolute left-[57%] top-[312px] h-[26px] w-[248px] rounded-[14px] bg-[#403832]" />
+          {/* Horizontal tunnel */}
+          <div className="absolute left-[49%] top-[300px] h-[50px] w-[290px] rounded-[20px] border-[4px] border-[#171312] bg-[#2a2422]" />
+          <div className="absolute left-[52%] top-[312px] h-[26px] w-[248px] rounded-[14px] bg-[#403832]" />
 
+          {/* Structure labels */}
           <div className="absolute left-[43%] top-[505px] -translate-x-1/2 text-[16px] font-semibold text-white/90">
             Vertical Mine Shaft
           </div>
 
-          <div className="absolute left-[66%] top-[455px] -translate-x-1/2 text-[16px] font-semibold text-white/90">
+          <div className="absolute left-[72%] top-[455px] -translate-x-1/2 text-[16px] font-semibold text-white/90">
             Horizontal Mine Tunnel
           </div>
 
+          {/* Device points + labels */}
           {devices.map((device) => {
             const isSelected = selectedDeviceId === device.id;
 
