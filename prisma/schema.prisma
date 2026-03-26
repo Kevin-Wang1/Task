@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Device {
+  id           String         @id
+  name         String
+  geoFeatureId String?        @unique
+  stackItems   StackItem[]
+  histories    StackHistory[]
+}
+
+model Module {
+  id            String        @id
+  name          String
+  moduleType    String
+  power         Int
+  stackItems    StackItem[]
+  outgoingRules ReplaceRule[] @relation("RuleFromModule")
+  incomingRules ReplaceRule[] @relation("RuleToModule")
+}
+
+model StackItem {
+  id        Int    @id @default(autoincrement())
+  deviceId  String
+  slotIndex Int
+  moduleId  String
+
+  device Device @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  module Module @relation(fields: [moduleId], references: [id])
+
+  @@unique([deviceId, slotIndex])
+}
+
+model StackHistory {
+  id          Int      @id @default(autoincrement())
+  deviceId    String
+  slotIndex   Int
+  oldModuleId String
+  newModuleId String
+  changedAt   DateTime @default(now())
+
+  device Device @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+}
+
+model ReplaceRule {
+  id           Int     @id @default(autoincrement())
+  fromModuleId String
+  toModuleId   String
+  isAllowed    Boolean @default(true)
+
+  fromModule Module @relation("RuleFromModule", fields: [fromModuleId], references: [id])
+  toModule   Module @relation("RuleToModule", fields: [toModuleId], references: [id])
+
+  @@unique([fromModuleId, toModuleId])
+}
